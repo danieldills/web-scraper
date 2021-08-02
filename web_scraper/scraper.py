@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import time
 
-url = "https://en.wikipedia.org/wiki/History_of_Mexico"
+url = "https://en.wikipedia.org/wiki/History_of_Washington_(state)"
 required_string = "citation needed"
 
 def get_citations_needed_count(url):
