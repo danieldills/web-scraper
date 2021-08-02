@@ -1,5 +1,7 @@
 # Web Scraping
 
+Author: Daniel Dills
+
 ## Overview
 
 Create a web scraper that can automate the process of manually using the site.
