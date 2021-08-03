@@ -2,16 +2,16 @@ from bs4 import BeautifulSoup
 import requests
 import time
 
-url = "https://en.wikipedia.org/wiki/History_of_Mexico"
+url = "https://en.wikipedia.org/wiki/History_of_Washington_(state)"
 required_string = "citation needed"
 
 def get_citations_needed_count(url):
   res = requests.get(url)
   soup = BeautifulSoup(res.content, 'html.parser')
-  para_list = soup.find_all('p') 
+  paragraph_list = soup.find_all('p') 
   citation_count = 0
 
-  for item in para_list:
+  for item in paragraph_list:
     for string in item.stripped_strings:
       if required_string in repr(string):
         citation_count += 1
@@ -20,25 +20,25 @@ def get_citations_needed_count(url):
 def get_citations_needed_report(url):
     res = requests.get(url)
     list_with_citation = []
-    results = []
+    displayed_results = []
     soup = BeautifulSoup(res.content, 'html.parser')
 
-    pararaph_list = soup.find_all('p')
+    paragraph_list = soup.find_all('p')
 
-    for paragraph in pararaph_list:
+    for paragraph in paragraph_list:
         if required_string in paragraph.text:
             list_with_citation.append(paragraph.text)
 
     for paragraph in list_with_citation:
-        head, sep, tail = paragraph.rpartition('[citation needed]')
+        head, seperator, tail = paragraph.rpartition('[citation needed]')
         if required_string in head:
-            new_head, sep, new_tail = head.partition('[citation needed]')
-            results.append(new_head)
-            results.append(new_tail)
+            new_head, seperator, new_tail = head.partition('[citation needed]')
+            displayed_results.append(new_head)
+            displayed_results.append(new_tail)
         else:
-            results.append(head)
+            displayed_results.append(head)
     print('Paragraph with Citation needed:\n')
-    for paragraph in results:
+    for paragraph in displayed_results:
         print(paragraph)
         print()
         time.sleep(2)
