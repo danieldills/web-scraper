@@ -6,8 +6,8 @@ url = "https://en.wikipedia.org/wiki/History_of_Washington_(state)"
 required_string = "citation needed"
 
 def get_citations_needed_count(url):
-  res = requests.get(url)
-  soup = BeautifulSoup(res.content, 'html.parser')
+  url_content = requests.get(url)
+  soup = BeautifulSoup(url_content.content, 'html.parser')
   paragraph_list = soup.find_all('p') 
   citation_count = 0
 
@@ -18,10 +18,10 @@ def get_citations_needed_count(url):
   print(f'Number of Citations: {citation_count}\n')
 
 def get_citations_needed_report(url):
-    res = requests.get(url)
+    url_content = requests.get(url)
     list_with_citation = []
     displayed_results = []
-    soup = BeautifulSoup(res.content, 'html.parser')
+    soup = BeautifulSoup(url_content.content, 'html.parser')
 
     paragraph_list = soup.find_all('p')
 
